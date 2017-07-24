@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
+<!--[if IE 7 ]> <html lang="en" class="ie7"> <![endif]-->
+<!--[if IE 8 ]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9 ]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fiscal Year Selection</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag "fiscalyear", media: 'all' %>
+    <%= javascript_include_tag "fiscalyear" %>
+  </head>
+  <body>
+    <form method="POST" action="fiscalyears">
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+      <table>
+        <thead>
+          <tr>
+            <th class="fiscal-year-header">Remove</td>
+            <th class="fiscal-year-header">Begin Date</td>
+            <th class="fiscal-year-header">End Date</td>
+          </tr>
+        </thead>
+        <tbody id="fiscal-years-list">
+        <% session[:docket_fiscal_years].each_with_index do |dfy, i| %>
+          <tr id="fiscal-year-entry_<%= i %>" class="fiscal-year-entry">
+            <td><%= check_box_tag "fy[]", "#{i}", false, id: '', alt: 'Remove Fiscal Year range', class: 'fy-date-remove-checkbox' %></td>
+            <td><%= text_field_tag "fy_begin[]", dfy[0], id: '', alt: 'Begin Date', class: 'fy-date-entry' %></td>
+            <td><%= text_field_tag "fy_end[]", dfy[1], id: '', alt: 'End Date', class: 'fy-date-entry'  %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <div class="fiscal-year-actions">
+        <%= button_tag 'Add', type: 'button', class: 'fyButton', name: 'btnAddFY', id: 'btnAddFY', alt: 'Add Fiscal Year' %>
+        <%= button_tag 'Remove', type: 'button', class: 'fyButton', name: 'btnRemoveFY', id: 'btnRemoveFY', alt: 'Remove Fiscal Year' %>
+        <br><br>
+        <%= button_tag 'Save', type: 'submit', class: 'fyButton', name: 'btnCloseFY', id: 'btnCloseFY', alt: 'Save & Close Fiscal Year Selection' %>
+      </div>
+    </form>
+  </body>
+</html>

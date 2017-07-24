@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require tether.min
 //= require jquery_ujs
 //= require jquery.form-validator
 //= require jquery-ui
@@ -18,3 +19,6 @@
 //= require angular.min
 //= require angular-ui.min
 //= require 508ARIA
+//= require jquery.floatThead.min.js
+//= require select2.full.js
+//= require jquery.validate.min

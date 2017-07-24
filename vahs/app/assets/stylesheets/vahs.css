@@ -5,14 +5,14 @@
  * Used to override supporting CSS styles for Bootstrap implementation.
  *
  */
-body{
+body#vahs{
 	position:relative;
 	color: #010C29;
 	font-family: Arial,Helvetica,sans-serif;
 	font-size: 75%;
 	height: 100%;
 	overflow:hidden;
-	overflow-x:hidden;
+	overflow-x:auto;
 	overflow-y:scroll;
 	width: 100%;
 	height: auto;
@@ -23,16 +23,16 @@ body{
 	scrollbar-arrow-color: #01133F; 
 
 }
-body::-webkit-scrollbar-track{
+body#vahs::-webkit-scrollbar-track{
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	background-color: #F5F5F5;
 	border-radius: 10px;
 }
-body::-webkit-scrollbar{
+body#vahs::-webkit-scrollbar{
 	width: 10px;
 	background-color: #01133F;
 }
-body::-webkit-scrollbar-thumb{
+body#vahs::-webkit-scrollbar-thumb{
 	border-radius: 10px;
 	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgb(122,153,217)), color-stop(0.72, rgb(73,125,189)), color-stop(0.86, rgb(28,58,148)));
 }
@@ -86,6 +86,9 @@ label{
 #subheader span{
 	margin-left:3px;
 }
+#subheader h1 {
+  font-size: 18pt;
+}
 /* End - app/views/layouts/_header.html.erb */
 
 /* Start - app/views/[SubFolder]/[All Primary Pages].html.erb */
@@ -95,6 +98,7 @@ label{
 	background-repeat: repeat-x;
 	background-position: left top;
 	padding: 12px 10px 10px 10px;
+	width: 950px;
 	border-radius: 8px;
 }
 .wrapper{
@@ -118,6 +122,7 @@ label{
 #rptControls {
 	font-size: 13x;
 	line-height: 20px;
+	width: 920px;
 	background: transparent;
 }
 #rptResults {
@@ -135,6 +140,13 @@ label{
 	margin-top:15px;
 	font-size:28px;
 	font-weight: bold;
+	line-height:36px;
+	text-align:center;
+	width:100%
+}
+.rptResultsHeader2{
+	margin-top:15px;
+	font-size:18px;
 	line-height:36px;
 	text-align:center;
 	width:100%
@@ -222,3 +234,50 @@ label{
 	color:#f00;
 }
 /* End - Partial: app/views/base/_error.html.erb */
+
+/* Start - HR index */
+
+div.table-links-container {
+	display: table;
+	border-spacing: 24px;
+	margin-left: 24px;
+}
+
+div.table-links {
+	display: table-cell;
+	width: 270px;
+	border: 1px solid #000;
+}
+
+div.table-links div.header {
+	background-color: #a5a5a5;
+	border-bottom: 1px solid #000;
+	text-align: center;
+	font-weight: bold;
+	font-size: 14pt;
+	color: #002060;
+}
+
+div.table-links div.links {
+	margin-top: 12px;
+}
+
+div.table-links div.links ul {
+	list-style-type: none;
+}
+
+div.table-links div.links ul li {
+	margin-bottom: 12px;
+}
+
+div.table-links div.links ul li a {
+	color: #364e7e;
+	text-decoration: underline;
+	font-size: 10pt;
+	font-weight: bold;
+}
+
+div.table-links div.links ul li a:hover {
+	text-decoration: none;
+}
+/* End - HR index */

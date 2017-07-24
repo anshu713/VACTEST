@@ -4,6 +4,11 @@
 //= require jquery.table2excel
 
 $( document ).ready(function() {
+	$('#docket_fiscal_years').on('click', function() {
+		window.open('/fiscalyears', '', 'location=no,menubar=no,resizable=no,scrollbars=yes,width=400,height=500');
+		return false;
+        });
+
 	/*
 	 * DatePicker Control's Functionality
 	 */
@@ -32,4 +37,8 @@ $( document ).ready(function() {
 		$('#docdate').datepicker("option","defaultDate",d);
 		$('#docdate').datepicker("setDate",d);
 	}
+
+	$('table.hearingtable').floatThead({
+		position: 'fixed'
+	});
 });

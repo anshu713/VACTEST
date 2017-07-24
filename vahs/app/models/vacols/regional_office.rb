@@ -1,6 +1,9 @@
+=begin
 class Vacols::RegionalOffice
+  attr_reader :station_id, :regional_office, :tz_value
+  attr_accessor :fiscal_years, :total_pending, :docdate_total, :sql_regoff
 
-    STATIONS = {
+  STATIONS = {
     "301" => "RO01",
     "402" => "RO02",
     "304" => "RO04",
@@ -150,7 +153,8 @@ class Vacols::RegionalOffice
     "RO94" => { city: "St. Louis Education Center", state: "MO", timezone: "America/Chicago" },
     "RO98" => { city: "NCA", state: "DC", timezone: "America/New_York" },
     "RO99" => { city: "VHA CO", state: "DC", timezone: "America/New_York" },
-    "DSUSER" => { city: "Digital Service HQ", state: "DC", timezone: "America/New_York" }
+    "DSUSER" => { city: "Digital Service HQ", state: "DC", timezone: "America/New_York" },
+    "" => { city: "Unknown", state: "DC", timezone: "America/New_York" }
   }.freeze
 
 
@@ -169,12 +173,60 @@ class Vacols::RegionalOffice
     "America/New_York" => 11,
     "Asia/Manila" => 7
   }.freeze
-    ROS = CITIES.keys.freeze
 
-	#Function to return collection of info about a Regional Office
-	def self.roInfo(ro)
-		#will fail if does not find result, also no need for array of arrays  
-		#return STATIONS.find{|k,v| [v].flatten.include?(ro)}.first, CITIES[ro], VHTZ[CITIES[ro][:timezone]]  
-		return STATIONS.find{|k,v| Array(v).include?(ro)}.try(:first), CITIES[ro], VHTZ[CITIES[ro][:timezone]]  
+  ROS = CITIES.keys.freeze
+
+  def initialize regional_office, fiscal_years
+    @station_id, @regional_office, @tz_value = Vacols::RegionalOffice.roInfo(regional_office)
+    @total_pending = 0
+    @docdate_total = 0
+    @fiscal_years  = parse_fiscal_years(fiscal_years)
+  end
+
+  # fiscal_yrs is assumed to be sorted
+  def parse_fiscal_years fiscal_yrs
+    fiscal_years = []
+
+    fiscal_yrs.each do |range|
+      bgn = Date.parse(range[0]).strftime("%y").to_i + 1
+      ed  = Date.parse(range[1]).strftime("%y").to_i
+      tmp = {
+        display: "FY%02d-FY%02d" % [ bgn, ed ],
+        begin: Date.parse(range[0]),
+        end: Date.parse(range[1]),
+        total: 0,
+      }
+
+      tmp[:display] = "FY%02d" % [ ed ] if bgn == ed 
+      fiscal_years << tmp
     end
+
+    fiscal_years
+  end
+
+  def update_fiscal_year brieff
+    @fiscal_years.each do |fy|
+      fy[:total] += 1 if brieff.i9_received >= fy[:begin] and brieff.i9_received <= fy[:end]
+    end
+  end
+
+  def percentage total=1.0
+    docdate_total / total.to_f
+  end
+
+  def percentage_s total=1.0
+    "%.4f%%" % [ (percentage(total) * 100).round(4) ]
+  end
+
+  #Function to return collection of info about a Regional Office
+  def self.roInfo(ro)
+    [
+      STATIONS.find{|k,v| Array(v).include?(ro)}.try(:first),
+      CITIES[ro],
+      VHTZ[CITIES[ro][:timezone]]
+    ]
+  rescue
+    raise Exception, "Invalid ro: #{ro.inspect}"
+  end
 end
+=end

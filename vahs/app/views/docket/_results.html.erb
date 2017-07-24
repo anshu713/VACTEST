@@ -1,0 +1,42 @@
+        <div id="rptResults" class="wrapper">
+          <div class="rptResultsHeader"><%= @shType %> Docket Report</div>
+            <table class="table table-condensed hearingtable">
+              <thead class="thead-inverse">
+                <tr>
+                  <th>Regional<br/>Office</th>
+                  <th>Type</th>
+                  <th class="cntrAlign">Total<br/>Pending</th>
+                  <th class="cntrAlign">Pending<br/>(Pre <%= params[:docdate] %> )</th>
+                  <th class="cntrAlign">Percentage</th>
+                  <% @fiscal_years.each do |fy| %>
+                  <th><%= fy[:display] %></th>
+                  <% end %>
+                </tr>
+              </thead>
+              <tbody>
+                <% @output.each do |h, obj| %>
+                <tr>
+                  <td><%= obj.station_id %>-<%= obj.regional_office[:city] %></td>
+                  <td><%= @shType %></td>
+                  <td class="rghtAlign"><%= obj.total_pending %></td>
+                  <td class="rghtAlign"><%= obj.docdate_total %></td>
+                  <td class="rghtAlign"><%= obj.percentage_s @ttls["bfDocDate"] %></td>
+                  <% obj.fiscal_years.each do |fy| %>
+                  <td class="cntrAlign"><%= fy[:total] %></td>
+                  <% end %>
+                </tr>
+                <% end %>
+                <tr class="rptTotals">
+                  <td></td>
+                  <td>Totals</td>
+                  <td class="rghtAlign"><%= @ttls["ttlPending"] %></td>
+                  <td class="rghtAlign"><%= @ttls["bfDocDate"] %></td>
+                  <td class="rghtAlign"></td>
+                  <% @ttls['fyCol'].each do |ttl| %>
+                  <td class="cntrAlign"><%= ttl %></td>
+                  <% end %>
+                </tr>
+              </tbody>
+            </table>
+          </div> 
+        </div>
