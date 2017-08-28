@@ -1,0 +1,40 @@
+        <% title " - Travel Board" %>
+        <div id="rptResults" class="wrapper" style="background-color:#fff;" >
+          <div class="rptResultsHeader">Travel Board Allocation Analysis</div>
+            <table class="table table-condensed">
+              <thead class="thead-inverse">
+                <tr>
+                  <th>Regional<br/>Office</th>
+                  <th class='cntrAlign'>Total<br/>Pending</th>
+                  <th class='cntrAlign'>Pending<br/>(Pre <%= params[:docdate] %> )</th>
+                  <th class='cntrAlign'>Percentage</th>
+                  <th class='cntrAlign'>Judge Trips Added</th>
+                  <th class='cntrAlign'>Total Hearings Added</th>
+                  <th class='cntrAlign'>TBD</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @output.each do |h, obj| %>
+                <tr>
+                  <td><%= obj.station_id %>-<%= obj.regional_office[:city] %></td>
+                  <td class="cntrAlign"><%= obj.total_pending  %></td>
+                  <td class="cntrAlign"><%= obj.docdate_total  %></td>
+                  <td class="cntrAlign"><%= obj.percentage_s @ttls['bfDocDate'].to_f %>%</td>
+                  <td class="cntrAlign"></td>
+                  <td class="cntrAlign"></td>
+                  <td class="cntrAlign"></td>
+                </tr>
+                <% end %>
+                <tr class="rptTotals">
+                  <td>Totals</td>
+                  <td class="cntrAlign"><%= @ttls["ttlPending"] %></td>
+                  <td class="cntrAlign"><%= @ttls["bfDocDate"] %></td>
+                  <td class="cntrAlign"></td>
+                  <td class="cntrAlign"></td>
+                  <td class="cntrAlign"></td>
+                  <td class="cntrAlign"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>

@@ -1,2 +1,21 @@
-<div id="header"><span><%= image_tag("header-logo.png", alt:"VA Header Logo")%></span></div>
-<div id="subheader"><span><%= label_tag( nil, "Veterans\' Appeals Hearing Schedule (VAHS)", alt:"Veterans\' Appeals Hearing Schedule (VAHS)")%></span></div>
+<div id="header">
+  <%= image_tag("header-logo.png", alt:"VA Header Logo")%>
+</div>
+
+<div id="subheader" role="heading">
+  <h1><%= [ "BVA Resource Management System", yield(:page_header) ].reject(&:blank?).join(' - ') %></h1>
+</div>
+
+<%- if flash[:notice] || flash[:error] -%>
+<div class="flash-banner alert alert-info" id="flash-alert">
+  <%= flash[:notice] || '' %>
+  <%- if flash[:error] -%>
+    <ul>
+    <%- flash[:error].each do |k, v| -%>
+      <li><%= k %>: <%= v %></li>
+    <%- end -%>
+    </ul>
+  <%- end -%>
+</div>
+<%- flash.clear -%>
+<%- end -%>

@@ -1,0 +1,49 @@
+div.table {
+  display: table;
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 90%;
+
+  div.tbl-row {
+    display: table-row;
+
+    div.tbl-col {
+      display: table-cell;
+      padding: 6px 6px 6px 6px;
+
+      &[role=columnheader] {
+        font-weight: bold;
+        font-size: 14px;
+      }
+    }
+
+    &.hidden {
+      display: none;
+    }
+  }
+}
+
+ul.inline-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+  li {
+    margin-right: 5px;
+    display: inline;
+
+    &:not(:last-child):after {
+      content: " | ";
+      margin-left: 5px;
+    }
+
+    a {
+      color: #00f;
+      text-decoration: underline;
+    }
+  }
+}
+
+.hide-element {
+  display: none;
+}

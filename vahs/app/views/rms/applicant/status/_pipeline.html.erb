@@ -1,0 +1,35 @@
+<br /><br />
+<%= fields_for 'eapplication[]', appstatus do |f| %>
+  <div class="fieldset-left">
+    <div class="app-pipe-action"  <%= f.label :action_date1, "Action Date:" %></div>
+  </div>
+  <div class="fieldset-left"><%= f.text_field :pipeline_action_date, value: Date.today.to_s  %></div>
+  <div class="app-pipe-select">
+    <%= f.label :selection_date1, "Selection Date:" %>
+  </div>
+    <%= f.text_field :selection_date, placeholder: 'MM/DD/YYYY' %>
+  <br /><br />
+  <div class="fieldset-left">
+    <%= f.label :tentative_date1, "Tentative Offer Sent Date:" %>
+    <%= f.text_field :tentative_offer_date, placeholder: 'MM/DD/YYYY' %>
+  </div>
+  <div class="fieldset-right">
+    <%= f.label :security_date1, "Sent to Security Date:" %>
+    <%= f.text_field :sent_to_security_date, placeholder: 'MM/DD/YYYY' %>
+  </div>
+  <br /><br />
+  <div class="fieldset-left">
+    <div class="app-pipe-start"> <%= f.label :start_date1, "Sent Start Date:" %></div>
+  </div>
+  <div class="fieldset-left">  <%= f.text_field :sent_start_date, placeholder: 'MM/DD/YYYY' %></div>
+  <div class="app-pipe-eod">
+    <%= f.label :eod_date1, "Requested EOD:" %>
+  </div>
+    <%= f.text_field :requested_eod, placeholder: 'MM/DD/YYYY' %>
+  <br /><br />
+
+  <div class="fieldset-left">
+    <%= f.label :pipeline_comments1, "Comments:" %>
+    <%= f.text_area :pipeline_comments, size: "94x3" %>
+  </div>
+<% end %>
